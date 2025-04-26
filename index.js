@@ -1,12 +1,21 @@
 import express from 'express';
 import sql from './db.js';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 // 載入環境變數
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// 自定義 CORS 配置
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://你的域名.com'], // 允許的來源
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // 允許的 HTTP 方法
+  allowedHeaders: ['Content-Type', 'Authorization'], // 允許的請求頭
+  credentials: true // 允許攜帶憑證
+}));
 
 app.get('/', async (req, res) => {
   try {
